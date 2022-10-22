@@ -2,7 +2,7 @@ import { ClassDefinition } from "../type";
 
 
 type ClassDecoratorEvaluator = <T extends ClassDefinition>(constructor: T) => T | void;
-type ClassDecoratorFactory = (...args: [])=>  ClassDecoratorEvaluator;
+export type ClassDecoratorFactory = (...args: [])=>  ClassDecoratorEvaluator;
 
 const ClassFactory: ClassDecoratorFactory = ()=>{
   console.log("ClassMaster(): factory evaluated");
