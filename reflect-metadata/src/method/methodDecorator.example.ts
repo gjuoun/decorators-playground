@@ -21,6 +21,10 @@
 // const test = new ExampleClass()
 // console.log(test)
 
+type MethodDecoratorEvaluator = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => void
+export type MethodDecoratorFactory = (...args: any[])=>  MethodDecoratorEvaluator;
+
+
 class Greeter {
   greeting: string;
   constructor(message: string) {
@@ -33,12 +37,14 @@ class Greeter {
   }
 }
 
-function enumerable(value: boolean) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+const enumerable: MethodDecoratorFactory = (value: boolean) : MethodDecoratorEvaluator => {
+
+  const evaluator: MethodDecoratorEvaluator =  (target: any, propertyKey: string, descriptor: PropertyDescriptor) =>{
     const className = target.constructor.name
 
     descriptor.enumerable = value;
   };
+  return evaluator;
 }
 
 const test = new Greeter("test")
